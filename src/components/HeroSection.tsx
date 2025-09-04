@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { Button } from "./ui/button";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Zap, Play, ArrowDown, Target, Shield, Cpu } from "lucide-react";
+import { Zap, Play, ArrowDown, Target, Shield, Cpu , Cog, Wrench, Radio, Battery} from "lucide-react";
 import { ScrollTriggerWrapper, ParallaxElement } from "./ScrollTriggerWrapper";
 
 export function HeroSection() {
@@ -102,9 +102,18 @@ export function HeroSection() {
               delay: Math.random() * 5,
             }}
           >
-            <div className="w-6 h-6 border-2 border-[#0a91ab] rotate-45 relative">
-              <div className="absolute inset-1 bg-[#ffc045] animate-pulse" />
-            </div>
+<motion.div 
+  className="p-2 rounded-full bg-[#022333]/60 border border-[#0a91ab]/40 shadow-lg flex items-center justify-center backdrop-blur-sm"
+  whileHover={{ scale: 1.3, rotate: 10 }}
+>
+  {[
+    <Cpu key="cpu" className="w-4 h-4 text-[#0a91ab]" />,
+    <Battery key="battery" className="w-4 h-4 text-[#ffc045]" />,
+    <Target key="target" className="w-4 h-4 text-[#0a91ab]" />,
+    <Zap key="zap" className="w-4 h-4 text-[#ffc045]" />
+  ][Math.floor(Math.random() * 4)]}
+</motion.div>
+
           </motion.div>
         ))}
       </motion.div>
