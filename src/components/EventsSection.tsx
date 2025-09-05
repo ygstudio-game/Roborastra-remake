@@ -1,9 +1,9 @@
-import { motion } from "motion/react";
-import { Card } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { Calendar, Clock, MapPin, Users, Zap, Trophy, Target, Gamepad2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 export function EventsSection() {
+  const [hoveredCard, setHoveredCard] = useState(null);
+  
   const events = [
     {
       id: 1,
@@ -15,9 +15,10 @@ export function EventsSection() {
       location: "Arena Alpha",
       participants: "32 Teams",
       prize: "₹2,50,000",
-      icon: Zap,
+      icon: "⚡",
       gradient: "from-[#0a91ab] to-[#065471]",
-      glowColor: "#0a91ab"
+      glowColor: "#0a91ab",
+      coverImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 2,
@@ -29,9 +30,10 @@ export function EventsSection() {
       location: "Speed Track Beta",
       participants: "24 Teams",
       prize: "₹3,00,000",
-      icon: Target,
+      icon: "🎯",
       gradient: "from-[#ffc045] to-[#ff8c00]",
-      glowColor: "#ffc045"
+      glowColor: "#ffc045",
+      coverImage: "https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 3,
@@ -43,9 +45,10 @@ export function EventsSection() {
       location: "Tech Hub Gamma",
       participants: "40 Teams",
       prize: "₹4,00,000",
-      icon: Trophy,
+      icon: "🏆",
       gradient: "from-[#9333ea] to-[#7c3aed]",
-      glowColor: "#9333ea"
+      glowColor: "#9333ea",
+      coverImage: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 4,
@@ -57,23 +60,18 @@ export function EventsSection() {
       location: "Performance Delta",
       participants: "16 Teams",
       prize: "₹2,00,000",
-      icon: Gamepad2,
+      icon: "🎮",
       gradient: "from-[#059669] to-[#047857]",
-      glowColor: "#059669"
+      glowColor: "#059669",
+      coverImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     }
   ];
 
   return (
-    <section className="py-24 px-6 relative overflow-hidden">
-      {/* Background Grid */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="grid grid-cols-20 grid-rows-12 h-full w-full">
-          {Array.from({ length: 240 }).map((_, i) => (
-            <div key={i} className="border border-[#0a91ab]/20" />
-          ))}
-        </div>
-      </div>
-
+    <section className="py-24 px-6 relative overflow-hidden min-h-screen flex items-center justify-center">
+      {/* Background Effects */}
+ 
+      
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
@@ -96,7 +94,7 @@ export function EventsSection() {
         </motion.div>
 
         {/* Events Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {events.map((event, index) => (
             <motion.div
               key={event.id}
@@ -104,128 +102,199 @@ export function EventsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
               viewport={{ once: true }}
-              whileHover={{ 
-                scale: 1.05,
-                rotateY: 5,
-                rotateX: 5
-              }}
-              className="group perspective-1000"
+              className="perspective-1000 h-[380px]"
+              onMouseEnter={() => setHoveredCard(event.id)}
+              onMouseLeave={() => setHoveredCard(null)}
             >
-              <Card className={`
-                relative overflow-hidden bg-gradient-to-br from-[#065471]/20 to-[#022333]/40 
-                border-2 border-transparent hover:border-[${event.glowColor}]/60 
-                transition-all duration-500 transform-gpu
-                hover:shadow-2xl hover:shadow-[${event.glowColor}]/30
-              `}>
-                {/* Holographic Background Effect */}
-                <motion.div
-                  className={`absolute inset-0 bg-gradient-to-br ${event.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-                />
-
-                {/* Animated Border */}
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  animate={{
-                    background: [
-                      `linear-gradient(0deg, ${event.glowColor}20, transparent)`,
-                      `linear-gradient(90deg, ${event.glowColor}20, transparent)`,
-                      `linear-gradient(180deg, ${event.glowColor}20, transparent)`,
-                      `linear-gradient(270deg, ${event.glowColor}20, transparent)`,
-                      `linear-gradient(360deg, ${event.glowColor}20, transparent)`
-                    ]
-                  }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-
-                <div className="relative z-10 p-8">
-                  {/* Header */}
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="flex items-center gap-4">
-                      <motion.div
-                        className={`p-3 rounded-xl bg-gradient-to-br ${event.gradient} group-hover:scale-110 transition-transform duration-300`}
-                        whileHover={{ rotate: 360 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <event.icon className="h-6 w-6 text-white" />
-                      </motion.div>
-                      <div>
-                        <Badge 
-                          variant="outline" 
-                          className={`border-[${event.glowColor}] text-[${event.glowColor}] mb-2`}
-                        >
-                          {event.category}
-                        </Badge>
-                        <h3 className="text-2xl font-bold text-white group-hover:text-[${event.glowColor}] transition-colors duration-300">
-                          {event.title}
-                        </h3>
-                      </div>
-                    </div>
-                    <motion.div
-                      className={`text-2xl font-bold text-[${event.glowColor}]`}
-                      animate={{ scale: [1, 1.1, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      {event.prize}
-                    </motion.div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-gray-300 mb-6 group-hover:text-white transition-colors duration-300">
-                    {event.description}
-                  </p>
-
-                  {/* Event Details */}
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3 text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                      <Calendar className="h-4 w-4" />
-                      <span>{event.date}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                      <Clock className="h-4 w-4" />
-                      <span>{event.time}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                      <MapPin className="h-4 w-4" />
-                      <span>{event.location}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                      <Users className="h-4 w-4" />
-                      <span>{event.participants}</span>
-                    </div>
-                  </div>
-
-                  {/* Holographic Corners */}
-                  <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-[${event.glowColor}]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[${event.glowColor}]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[${event.glowColor}]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[${event.glowColor}]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
-
-                {/* Floating Particles */}
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className={`absolute w-1 h-1 bg-[${event.glowColor}] rounded-full opacity-0 group-hover:opacity-60`}
-                    style={{
-                      top: `${Math.random() * 100}%`,
-                      left: `${Math.random() * 100}%`,
-                    }}
-                    animate={{
-                      y: [0, -10, 0],
-                      opacity: [0, 0.6, 0],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: Math.random() * 2,
-                    }}
+              <div className="card relative w-full h-full flex justify-center items-end p-[0_20px] perspective-2500">
+                <div className="wrapper absolute w-full h-full z-[-1] transition-all duration-500 overflow-hidden rounded-xl">
+                  <img 
+                    src={event.coverImage} 
+                    className="cover-image w-full h-full object-cover rounded-xl" 
+                    alt={event.title}
                   />
-                ))}
-              </Card>
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70"></div>
+                  
+                  {/* Holographic Corners */}
+                  <div className={`holographic-corner corner-tl border-[${event.glowColor}] ${hoveredCard === event.id ? 'opacity-100' : 'opacity-0'}`}></div>
+                  <div className={`holographic-corner corner-tr border-[${event.glowColor}] ${hoveredCard === event.id ? 'opacity-100' : 'opacity-0'}`}></div>
+                  <div className={`holographic-corner corner-bl border-[${event.glowColor}] ${hoveredCard === event.id ? 'opacity-100' : 'opacity-0'}`}></div>
+                  <div className={`holographic-corner corner-br border-[${event.glowColor}] ${hoveredCard === event.id ? 'opacity-100' : 'opacity-0'}`}></div>
+                  
+                  {/* Particles */}
+                  {hoveredCard === event.id && (
+                    <>
+                      <div className="particle" style={{ top: '30%', left: '20%', background: event.glowColor, animationDelay: '0s' }}></div>
+                      <div className="particle" style={{ top: '60%', left: '80%', background: event.glowColor, animationDelay: '0.5s' }}></div>
+                      <div className="particle" style={{ top: '70%', left: '40%', background: event.glowColor, animationDelay: '1s' }}></div>
+                    </>
+                  )}
+                </div>
+                
+                <div className="title w-full transition-transform duration-500 text-center mb-4">
+                  <h3 className="text-xl font-bold text-white group-hover:translate-y-[-20px] hover:opacity-0 transition-transform duration-500 ">
+                    {event.title}
+                  </h3>
+                  <span className={`mt-2 inline-block px-3 py-1 rounded-full border text-xs font-semibold border-[${event.glowColor}] text-[${event.glowColor}]`}>
+                    {event.category}
+                  </span>
+                </div>
+                
+                <div className="character absolute w-full opacity-0 transition-all duration-500 z-[-1] group-hover:opacity-100 group-hover:translate-y-[-30%] flex justify-center">
+                  <div className={`p-3 rounded-full bg-gradient-to-br ${event.gradient}`}>
+                    <span className="text-2xl text-white">{event.icon}</span>
+                  </div>
+                </div>
+                
+                <div className={`details absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white transition-opacity duration-500 ${hoveredCard === event.id ? 'opacity-100' : 'opacity-0'} rounded-b-xl`}>
+                  <p className="text-xl mb-2">{event.description}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs flex items-center">
+                      <span className="mr-1">🏆</span>
+                      {event.prize}
+                    </span>
+                    <span className="text-xs flex items-center">
+                      <span className="mr-1">👥</span>
+                      {event.participants}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        .card {
+          width: 100%;
+          height: 380px;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          padding: 0 20px;
+          perspective: 2500px;
+        }
+        
+        .wrapper {
+          transition: all 0.5s;
+          position: absolute;
+          width: 100%;
+          z-index: -1;
+          border-radius: 0.75rem;
+          overflow: hidden;
+        }
+        
+        .card:hover .wrapper {
+          transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
+          box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+        }
+        
+        .wrapper::before,
+        .wrapper::after {
+          content: "";
+          opacity: 0;
+          width: 100%;
+          height: 80px;
+          transition: all 0.5s;
+          position: absolute;
+          left: 0;
+          border-radius: 16px;
+        }
+        
+        .wrapper::before {
+          top: 0;
+          height: 100%;
+          background-image: linear-gradient(
+            to top,
+            transparent 46%,
+            rgba(12, 13, 19, 0.5) 68%,
+            rgba(12, 13, 19) 97%
+          );
+        }
+        
+        .wrapper::after {
+          bottom: 0;
+          opacity: 0;
+          background-image: linear-gradient(
+            to bottom,
+            transparent 46%,
+            rgba(12, 13, 19, 0.5) 68%,
+            rgba(12, 13, 19) 97%
+          );
+        }
+        
+        .card:hover .wrapper::before,
+        .card:hover .wrapper::after {
+          opacity: 1;
+        }
+        
+        .card:hover .wrapper::after {
+          height: 120px;
+        }
+        
+        .holographic-corner {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          transition: opacity 0.5s;
+        }
+        
+        .corner-tl {
+          top: 10px;
+          left: 10px;
+          border-top: 2px solid;
+          border-left: 2px solid;
+        }
+        
+        .corner-tr {
+          top: 10px;
+          right: 10px;
+          border-top: 2px solid;
+          border-right: 2px solid;
+        }
+        
+        .corner-bl {
+          bottom: 10px;
+          left: 10px;
+          border-bottom: 2px solid;
+          border-left: 2px solid;
+        }
+        
+        .corner-br {
+          bottom: 10px;
+          right: 10px;
+          border-bottom: 2px solid;
+          border-right: 2px solid;
+        }
+        
+        .particle {
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          opacity: 0;
+          animation: float 3s infinite;
+        }
+        
+        @keyframes float {
+          0% {
+            transform: translateY(0) translateX(0);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.7;
+          }
+          90% {
+            opacity: 0.2;
+          }
+          100% {
+            transform: translateY(-50px) translateX(20px);
+            opacity: 0;
+          }
+        }
+      `}</style>
     </section>
   );
 }

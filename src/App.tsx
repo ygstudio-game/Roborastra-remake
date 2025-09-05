@@ -1,9 +1,6 @@
-import { useState ,useRef } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Power } from "lucide-react";
-import { RoboticOpeningAnimation } from "./components/RoboticOpeningAnimation";
 import { RoboticHUDNavigation } from "./components/RoboticHUDNavigation";
-import { RoboticScrollSpeedometer } from "./components/RoboticScrollSpeedometer";
 import { HeroSection } from "./components/HeroSection";
 import { EventsSection } from "./components/EventsSection";
 import { GlimpseSection } from "./components/GlimpseSection";
@@ -16,94 +13,27 @@ import { ScrollTriggerWrapper } from "./components/ScrollTriggerWrapper";
 import { StartScreen } from "./components/StartScreen"; 
 
 export default function App() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [systemInitialized, setSystemInitialized] = useState(false);
 
-    const scrollRef = useRef<HTMLDivElement>(null);
-  const [showOpeningAnimation, setShowOpeningAnimation] =
-    useState(false);
-  const [systemInitialized, setSystemInitialized] =
-    useState(false);
-
-  const handleAnimationComplete = () => {
-    setShowOpeningAnimation(false);
+  const startBootSequence = () => {
     setSystemInitialized(true);
   };
 
-  const startBootSequence = () => {
-    setShowOpeningAnimation(true);
-  };
-
   return (
-    <div      ref={scrollRef}
- className="dark min-h-screen h-[100vh] max-w-screen bg-background text-foreground relative overflow-x-hidden">
-      {/* HUD Controls - Always Visible with improved positioning */}
+    <div
+      ref={scrollRef}
+      className="dark min-h-screen h-[100vh] max-w-screen bg-background text-foreground relative overflow-x-hidden"
+    >
+      {/* HUD Controls - Visible after system initialized */}
       {systemInitialized && (
         <>
-          <RoboticHUDNavigation scrollContainerRef={scrollRef}/>
-          <RoboticScrollSpeedometer  scrollContainerRef={scrollRef} />
+          <RoboticHUDNavigation scrollContainerRef={scrollRef} />
         </>
       )}
 
       <AnimatePresence mode="wait">
-        {showOpeningAnimation ? (
-          <RoboticOpeningAnimation
-            onComplete={handleAnimationComplete}
-          />
-        ) : !systemInitialized ? (
-          // Manual Boot Trigger Screen
-          // <motion.div
-          //   key="boot-trigger"
-          //   initial={{ opacity: 0 }}
-          //   animate={{ opacity: 1 }}
-          //   exit={{ opacity: 0 }}
-          //   className="fixed inset-0 bg-[#022333] flex items-center justify-center z-50"
-          // >
-          //   <div className="text-center">
-          //     <motion.div
-          //       initial={{ scale: 0.8, opacity: 0 }}
-          //       animate={{ scale: 1, opacity: 1 }}
-          //       transition={{ duration: 1 }}
-          //       className="mb-8"
-          //     >
-          //       <h1 className="text-6xl font-bold bg-gradient-to-r from-[#0a91ab] to-[#ffc045] bg-clip-text text-transparent mb-4 font-mono">
-          //         ROBORASHTRA 2K25
-          //       </h1>
-          //       <p className="text-[#0a91ab] font-mono text-xl mb-8">
-          //         &gt; SYSTEM STANDBY_
-          //       </p>
-          //     </motion.div>
-
-          //     <motion.button
-          //       onClick={startBootSequence}
-          //       className="group relative px-8 py-4 bg-gradient-to-r from-[#0a91ab] to-[#ffc045] rounded-lg border-2 border-[#ffc045]/50 font-mono uppercase tracking-wider transition-all duration-300"
-          //       whileHover={{ scale: 1.05 }}
-          //       whileTap={{ scale: 0.95 }}
-          //       initial={{ y: 20, opacity: 0 }}
-          //       animate={{ y: 0, opacity: 1 }}
-          //       transition={{ delay: 0.5, duration: 0.8 }}
-          //     >
-          //       <motion.div
-          //         className="absolute inset-0 bg-gradient-to-r from-[#0a91ab] to-[#ffc045] rounded-lg opacity-75 blur-sm"
-          //         animate={{
-          //           opacity: [0.5, 0.8, 0.5],
-          //         }}
-          //         transition={{ duration: 2, repeat: Infinity }}
-          //       />
-          //       <div className="relative flex items-center">
-          //         <Power className="w-5 h-5 mr-2" />
-          //         Initialize System
-          //       </div>
-          //     </motion.button>
-
-          //     <motion.p
-          //       className="text-sm text-gray-500 font-mono mt-6"
-          //       initial={{ opacity: 0 }}
-          //       animate={{ opacity: 1 }}
-          //       transition={{ delay: 1, duration: 1 }}
-          //     >
-          //       Click to boot the championship interface
-          //     </motion.p>
-          //   </div>
-          // </motion.div>
+        {!systemInitialized ? (
           <StartScreen onStart={startBootSequence} />
         ) : (
           <motion.div
@@ -113,16 +43,12 @@ export default function App() {
             transition={{ duration: 1.5, ease: "easeOut" }}
             className="min-h-screen relative"
           >
-            {/* Optimized 3D Background Elements */}
+            {/* Background Effects */}
             <div className="fixed inset-0 pointer-events-none z-0">
-              {/* Simplified Animated Grid Overlay */}
               <motion.div
                 className="absolute inset-0 opacity-3"
                 animate={{
-                  backgroundPosition: [
-                    "0px 0px",
-                    "100px 100px",
-                  ],
+                  backgroundPosition: ["0px 0px", "100px 100px"],
                 }}
                 transition={{
                   duration: 30,
@@ -137,8 +63,6 @@ export default function App() {
                   backgroundSize: "100px 100px",
                 }}
               />
-
-              {/* Reduced Floating Particles */}
               {Array.from({ length: 8 }).map((_, i) => (
                 <motion.div
                   key={i}
@@ -161,43 +85,9 @@ export default function App() {
                   }}
                 />
               ))}
-
-              {/* Simplified Corner HUD Elements */}
-              {[
-                {
-                  position: "top-4 right-52",
-                  width: "w-16",
-                  height: "h-8",
-                  border: "border-t-2 border-r-2",
-                },
-                {
-                  position: "bottom-4 right-52",
-                  width: "w-20",
-                  height: "h-6",
-                  border: "border-b-2 border-r-2",
-                },
-              ].map((element, index) => (
-                <motion.div
-                  key={index}
-                  className={`absolute ${element.position} ${element.width} ${element.height} ${element.border} border-[#0a91ab]/30`}
-                  animate={{
-                    borderColor: [
-                      "#0a91ab30",
-                      "#0a91ab60",
-                      "#ffc04540",
-                      "#0a91ab30",
-                    ],
-                    opacity: [0.3, 0.6, 0.3],
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    delay: index * 1,
-                  }}
-                />
-              ))}
             </div>
 
+            {/* Main Sections */}
             <main className="relative z-10">
               <section id="home">
                 <ScrollTriggerWrapper animation="fadeInUp">
@@ -248,7 +138,8 @@ export default function App() {
               </section>
             </main>
 
-            {/* Optimized Footer */}
+
+                      {/* Optimized Footer */}
             <ScrollTriggerWrapper animation="fadeInUp">
               <footer className="bg-[#022333] border-t-2 border-[#0a91ab]/30 py-16 relative overflow-hidden mt-20">
                 {/* Simplified Background Circuit Pattern */}
@@ -384,9 +275,10 @@ export default function App() {
               </footer>
             </ScrollTriggerWrapper>
           </motion.div>
-        )}
+        
+        
+          )}
       </AnimatePresence>
     </div>
   );
 }
- 

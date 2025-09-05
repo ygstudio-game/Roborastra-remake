@@ -26,7 +26,7 @@ export function StartScreen({ onStart }: StartScreenProps) {
     let messageIndex = 0;
 
     const bootInterval = setInterval(() => {
-      progress += Math.random() * 20;
+      progress += Math.random() * 50;
       setBootProgress(Math.min(progress, 100));
 
       if (progress >= (messageIndex + 1) * 16.67 && messageIndex < bootSequence.length) {

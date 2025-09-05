@@ -21,10 +21,10 @@ export function ContactSection() {
 
   const contactInfo = [
     {
-      icon: MapPin,
-      title: "Location",
-      info: "Tech District, Innovation Hub",
-      subInfo: "Sector 42, Future City",
+      icon: Linkedin,
+      title: "LinkedIn",
+      info: "Roborashtra 2K25",
+      subInfo: "Connect with us",
       color: "#0a91ab"
     },
     {
@@ -42,10 +42,10 @@ export function ContactSection() {
       color: "#0a91ab"
     },
     {
-      icon: MessageSquare,
-      title: "Live Chat",
-      info: "Available 24/7",
-      subInfo: "Instant Support",
+      icon: Instagram,
+      title: "Instagram",
+      info: "@roborashtra2k25",
+      subInfo: "Follow our updates",
       color: "#ffc045"
     }
   ];
@@ -276,249 +276,151 @@ export function ContactSection() {
               </div>
             </motion.div>
           </motion.div>
+{/* Right Column - Contact Form */}
+<motion.div
+  initial={{ opacity: 0, x: 50 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8 }}
+  viewport={{ once: true }}
+>
+  <div className="bg-gradient-to-br from-[#065471]/30 to-[#022333]/50 backdrop-blur-sm border-2 border-[#0a91ab]/40 p-8 relative overflow-hidden">
+    <div className="relative z-10">
+      <h3 className="text-2xl font-bold text-white mb-6 font-mono flex items-center gap-2">
+        <Send className="h-6 w-6 text-[#0a91ab]" />
+        Contact Us
+      </h3>
 
-          {/* Right Column - Contact Form */}
+      <form className="space-y-6">
+        {/* Name Field */}
+        <div>
+          <label className="block text-sm text-gray-300 mb-2">
+            Your Name
+          </label>
+          <Input
+            type="text"
+            value={formData.name}
+            onChange={(e) => handleInputChange('name', e.target.value)}
+            placeholder="Enter your name"
+            className="bg-[#022333]/50 border-2 text-white"
+          />
+        </div>
+
+        {/* Email Field */}
+        <div>
+          <label className="block text-sm text-gray-300 mb-2">
+            Your Email
+          </label>
+          <Input
+            type="email"
+            value={formData.email}
+            onChange={(e) => handleInputChange('email', e.target.value)}
+            placeholder="Enter your email"
+            className="bg-[#022333]/50 border-2 text-white"
+          />
+        </div>
+
+        {/* Subject Field */}
+        <div>
+          <label className="block text-sm text-gray-300 mb-2">
+            Subject
+          </label>
+          <Input
+            type="text"
+            value={formData.subject}
+            onChange={(e) => handleInputChange('subject', e.target.value)}
+            placeholder="What is this about?"
+            className="bg-[#022333]/50 border-2 text-white"
+          />
+        </div>
+
+        {/* Message Field */}
+        <div>
+          <label className="block text-sm text-gray-300 mb-2">
+            Message
+          </label>
+          <Textarea
+            value={formData.message}
+            onChange={(e) => handleInputChange('message', e.target.value)}
+            rows={4}
+            placeholder="Type your message here..."
+            className="bg-[#022333]/50 border-2 text-white resize-none"
+          />
+        </div>
+
+        {/* Submit Button */}
+        <Button 
+          type="submit"
+          className="w-full bg-gradient-to-r from-[#0a91ab] to-[#ffc045] text-white py-4 font-mono uppercase tracking-wider"
+        >
+          Send Message
+        </Button>
+      </form>
+    </div>
+
+    {/* Corner Indicators */}
+    <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-[#0a91ab]" />
+    <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[#ffc045]" />
+    <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[#ffc045]" />
+    <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[#0a91ab]" />
+  </div>
+
+{/* Social Links */}
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.6 }}
+  viewport={{ once: true }}
+  className="mt-8"
+>
+  <h3 className="text-xl font-bold text-white mb-6 font-mono text-center">
+    Follow Us
+  </h3>
+  
+  <div className="flex justify-center gap-6">
+    {socialLinks.map((social, index) => (
+      <motion.a
+        key={index}
+        href={social.url}
+        className="group relative"
+        whileHover={{ scale: 1.1 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      >
+        <div 
+          className="w-14 h-14 border-2 flex items-center justify-center relative overflow-hidden rounded-full"
+          style={{ borderColor: social.color + "60" }}
+        >
+          <social.icon 
+            className="h-6 w-6 z-10 relative group-hover:text-white transition-colors duration-300"
+            style={{ color: social.color }}
+          />
+          
+          {/* Glow Background */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            {/* Holographic Contact Form */}
-            <div className="bg-gradient-to-br from-[#065471]/30 to-[#022333]/50 backdrop-blur-sm border-2 border-[#0a91ab]/40 p-8 relative overflow-hidden">
-              {/* Animated Border */}
-              <motion.div
-                className="absolute inset-0 border-2"
-                animate={{ 
-                  borderColor: ["#0a91ab40", "#ffc04560", "#0a91ab40"] 
-                }}
-                transition={{ duration: 4, repeat: Infinity }}
-              />
+            className="absolute inset-0 opacity-0 group-hover:opacity-30 rounded-full transition-opacity duration-300"
+            style={{ backgroundColor: social.color }}
+          />
 
-              <div className="relative z-10">
-                <h3 className="text-2xl font-bold text-white mb-6 font-mono flex items-center gap-2">
-                  <Send className="h-6 w-6 text-[#0a91ab]" />
-                  TRANSMISSION FORM
-                </h3>
+          {/* Glow Shadow */}
+          <motion.div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-300"
+            style={{ boxShadow: `0 0 20px ${social.color}80` }}
+          />
+        </div>
+        
+        {/* Floating Label */}
+        <motion.div
+          className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{ color: social.color }}
+        >
+          {social.name}
+        </motion.div>
+      </motion.a>
+    ))}
+  </div>
+</motion.div>
 
-                <form className="space-y-6">
-                  {/* Name Field */}
-                  <motion.div
-                    className="relative"
-                    whileHover={{ scale: 1.02 }}
-                  >
-                    <label className="block text-sm font-mono text-gray-300 mb-2">
-                      OPERATOR_NAME:
-                    </label>
-                    <div className="relative">
-                      <Input
-                        type="text"
-                        value={formData.name}
-                        onChange={(e) => handleInputChange('name', e.target.value)}
-                        onFocus={() => setFocusedField('name')}
-                        onBlur={() => setFocusedField('')}
-                        className={`bg-[#022333]/50 border-2 text-white font-mono transition-all duration-300 ${
-                          focusedField === 'name' 
-                            ? 'border-[#0a91ab] shadow-[0_0_10px_#0a91ab40]' 
-                            : 'border-[#065471] hover:border-[#0a91ab]/60'
-                        }`}
-                        placeholder="Enter your designation..."
-                      />
-                      {focusedField === 'name' && (
-                        <motion.div
-                          className="absolute inset-0 border-2 border-[#0a91ab] pointer-events-none"
-                          animate={{ opacity: [0.5, 1, 0.5] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                        />
-                      )}
-                    </div>
-                  </motion.div>
+</motion.div>
 
-                  {/* Email Field */}
-                  <motion.div
-                    className="relative"
-                    whileHover={{ scale: 1.02 }}
-                  >
-                    <label className="block text-sm font-mono text-gray-300 mb-2">
-                      COMM_CHANNEL:
-                    </label>
-                    <div className="relative">
-                      <Input
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
-                        onFocus={() => setFocusedField('email')}
-                        onBlur={() => setFocusedField('')}
-                        className={`bg-[#022333]/50 border-2 text-white font-mono transition-all duration-300 ${
-                          focusedField === 'email' 
-                            ? 'border-[#ffc045] shadow-[0_0_10px_#ffc04540]' 
-                            : 'border-[#065471] hover:border-[#ffc045]/60'
-                        }`}
-                        placeholder="secure@frequency.net"
-                      />
-                      {focusedField === 'email' && (
-                        <motion.div
-                          className="absolute inset-0 border-2 border-[#ffc045] pointer-events-none"
-                          animate={{ opacity: [0.5, 1, 0.5] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                        />
-                      )}
-                    </div>
-                  </motion.div>
-
-                  {/* Subject Field */}
-                  <motion.div
-                    className="relative"
-                    whileHover={{ scale: 1.02 }}
-                  >
-                    <label className="block text-sm font-mono text-gray-300 mb-2">
-                      SUBJECT_CODE:
-                    </label>
-                    <div className="relative">
-                      <Input
-                        type="text"
-                        value={formData.subject}
-                        onChange={(e) => handleInputChange('subject', e.target.value)}
-                        onFocus={() => setFocusedField('subject')}
-                        onBlur={() => setFocusedField('')}
-                        className={`bg-[#022333]/50 border-2 text-white font-mono transition-all duration-300 ${
-                          focusedField === 'subject' 
-                            ? 'border-[#0a91ab] shadow-[0_0_10px_#0a91ab40]' 
-                            : 'border-[#065471] hover:border-[#0a91ab]/60'
-                        }`}
-                        placeholder="Mission objective..."
-                      />
-                      {focusedField === 'subject' && (
-                        <motion.div
-                          className="absolute inset-0 border-2 border-[#0a91ab] pointer-events-none"
-                          animate={{ opacity: [0.5, 1, 0.5] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                        />
-                      )}
-                    </div>
-                  </motion.div>
-
-                  {/* Message Field */}
-                  <motion.div
-                    className="relative"
-                    whileHover={{ scale: 1.02 }}
-                  >
-                    <label className="block text-sm font-mono text-gray-300 mb-2">
-                      MESSAGE_DATA:
-                    </label>
-                    <div className="relative">
-                      <Textarea
-                        value={formData.message}
-                        onChange={(e) => handleInputChange('message', e.target.value)}
-                        onFocus={() => setFocusedField('message')}
-                        onBlur={() => setFocusedField('')}
-                        rows={4}
-                        className={`bg-[#022333]/50 border-2 text-white font-mono transition-all duration-300 resize-none ${
-                          focusedField === 'message' 
-                            ? 'border-[#ffc045] shadow-[0_0_10px_#ffc04540]' 
-                            : 'border-[#065471] hover:border-[#ffc045]/60'
-                        }`}
-                        placeholder="Transmit your message..."
-                      />
-                      {focusedField === 'message' && (
-                        <motion.div
-                          className="absolute inset-0 border-2 border-[#ffc045] pointer-events-none"
-                          animate={{ opacity: [0.5, 1, 0.5] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                        />
-                      )}
-                    </div>
-                  </motion.div>
-
-                  {/* Submit Button */}
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button 
-                      type="submit"
-                      className="w-full bg-gradient-to-r from-[#0a91ab] to-[#ffc045] hover:from-[#0a91ab]/80 hover:to-[#ffc045]/80 text-white py-4 font-mono uppercase tracking-wider transition-all duration-300 border-2 border-transparent hover:border-[#ffc045]/50 group relative overflow-hidden"
-                    >
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-[#ffc045] to-[#0a91ab] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        animate={{ 
-                          x: ["-100%", "100%"],
-                        }}
-                        transition={{ duration: 3, repeat: Infinity }}
-                      />
-                      <div className="relative z-10 flex items-center gap-2">
-                        <Send className="h-5 w-5 group-hover:animate-pulse" />
-                        Initialize Transmission
-                      </div>
-                    </Button>
-                  </motion.div>
-                </form>
-              </div>
-
-              {/* Corner Indicators */}
-              <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-[#0a91ab]" />
-              <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[#ffc045]" />
-              <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[#ffc045]" />
-              <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[#0a91ab]" />
-            </div>
-
-            {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              viewport={{ once: true }}
-              className="mt-8"
-            >
-              <h3 className="text-xl font-bold text-white mb-6 font-mono text-center">
-                SOCIAL_NETWORKS
-              </h3>
-              
-              <div className="flex justify-center gap-6">
-                {socialLinks.map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.url}
-                    className="group relative"
-                    whileHover={{ scale: 1.2, rotateY: 360 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div 
-                      className="w-14 h-14 border-2 flex items-center justify-center relative overflow-hidden"
-                      style={{ borderColor: social.color + "60" }}
-                    >
-                      <social.icon 
-                        className="h-6 w-6 z-10 relative group-hover:text-white transition-colors duration-300"
-                        style={{ color: social.color }}
-                      />
-                      
-                      {/* Holographic Background */}
-                      <motion.div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-300"
-                        style={{ backgroundColor: social.color }}
-                      />
-
-                      {/* Glow Effect */}
-                      <motion.div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{
-                          boxShadow: `0 0 20px ${social.color}80`
-                        }}
-                      />
-                    </div>
-                    
-                    {/* Floating Label */}
-                    <motion.div
-                      className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{ color: social.color }}
-                    >
-                      {social.name}
-                    </motion.div>
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
         </div>
       </div>
 
